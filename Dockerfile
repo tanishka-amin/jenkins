@@ -11,5 +11,12 @@ USER jenkins
 # Disable setup wizard so we can configure jenkins programmatically
 ENV JAVA_OPTS="-Djenkins.install.runSetupWizard=false"
 
+# Configure plugins based on suggested defaults in https://github.com/jenkinsci/jenkins/blob/master/core/src/main/resources/jenkins/install/platform-plugins.json
+COPY --chown=jenkins:jenkins plugins.txt /usr/share/jenkins/ref/plugins.txt
+
+# Note that the install-plugins.sh script is now deprecated 
+# RUN /usr/local/bin/install-plugins.sh < /usr/share/jenkins/ref/plugins.txt
+RUN jenkins-plugin-cli -f /usr/share/jenkins/ref/plugins.txt
+
 # Add groovy script to Jenkins hook
 #COPY --chown=jenkins:jenkins init.groovy.d/ /var/jenkins_home/init.groovy.d/
