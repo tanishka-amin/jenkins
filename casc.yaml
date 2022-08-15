@@ -1,3 +1,12 @@
+jenkins:
+  securityRealm: 
+    local:
+      allowsSignup: false
+      users:
+        - description: "Jenkins admin user"
+          id: "admin"
+          name: "admin"
+          password: "${JENKINS_ADMIN_PASSWORD}"
 unclassified:
   location:
     url: "http://127.0.0.1:8080/"
