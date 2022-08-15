@@ -7,6 +7,11 @@ jenkins:
           id: "admin"
           name: "admin"
           password: "${JENKINS_ADMIN_PASSWORD}"
+  authorizationStrategy:
+    globalMatrix:
+      permissions:
+        - "USER:Overall/Administer:admin"
+        - "GROUP:Overall/Read:authenticated"
 unclassified:
   location:
     url: "http://127.0.0.1:8080/"
