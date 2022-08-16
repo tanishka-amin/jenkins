@@ -12,6 +12,24 @@ jenkins:
       permissions:
         - "USER:Overall/Administer:admin"
         - "GROUP:Overall/Read:authenticated"
+tool:
+  git:
+    installations:
+      - name: git
+        home: /usr/bin/git
+credentials:
+  system:
+    domainCredentials:
+      - credentials:
+          - usernamePassword:
+              scope: GLOBAL
+              id: git-access-token
+              username: tanishka-amin
+              password: "${GIT_ACCESS_TOKEN}"
+jobs:
+  - script: >
+      folder('number-guesser')
+  - file: '/var/jenkins_home/jobdsl/number-guesser.groovy'
 unclassified:
   location:
     url: "http://127.0.0.1:8080/"

@@ -22,6 +22,8 @@ RUN jenkins-plugin-cli -f /usr/share/jenkins/ref/plugins.txt
 # Copy config as code yaml to appropriate location in jenkins
 COPY casc.yaml /var/jenkins_home/casc.yaml
 
+COPY --chown=jenkins:jenkins jobs/number-guesser.groovy /var/jenkins_home/jobdsl/number-guesser.groovy
+
 
 # Add groovy script to Jenkins hook
 #COPY --chown=jenkins:jenkins init.groovy.d/ /var/jenkins_home/init.groovy.d/

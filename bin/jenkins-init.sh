@@ -74,10 +74,14 @@ runJenkins() {
     # Run an aws command from a docker container and remove the container when finished
     # Prerequisite: Set up ~/.aws/credentials and ~/.aws/config for the root user
     CREDENTIAL="$(docker run --rm -it -v ~/.aws:/root/.aws amazon/aws-cli ssm get-parameters --name 'JENKINS_ADMIN_PASS' --with-decryption --query Parameters[*].Value --output text --no-cli-pager)"  
+    
+    ## Get additional credentials
+    GIT_TOKEN="$(docker run --rm -it -v ~/.aws:/root/.aws amazon/aws-cli ssm get-parameters --name 'GIT_ACCESS_TOKEN' --with-decryption --query Parameters[*].Value --output text --no-cli-pager)"
 
     # Janky Workaround
-    # Put secret in temp text file and then pass the file in to docker run
+    # Put secret(s) in temp text file and then pass the file in to docker run
     echo -e "JENKINS_ADMIN_PASSWORD=${CREDENTIAL}" > ./env.txt
+    echo -e "GIT_ACCESS_TOKEN=${GIT_TOKEN}" >> ./env.txt
 
     # Run container 
     # docker run --name "${CONTAINER_NAME}" --detach -p 8080:8080 --env JENKINS_ADMIN_PASSWORD="${CREDENTIAL}" "${IMAGE_NAME}"
