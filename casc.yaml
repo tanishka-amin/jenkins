@@ -1,4 +1,5 @@
 jenkins:
+  systemMessage: "Hello from Jenkins\n\n"
   securityRealm: 
     local:
       allowsSignup: false
@@ -26,10 +27,19 @@ credentials:
               id: git-access-token
               username: tanishka-amin
               password: "${GIT_ACCESS_TOKEN}"
+          - string:
+              scope: GLOBAL
+              id: aws-cli-access-token
+              token: "${AWS_ACCESS_KEY_ID}"
+          - string:
+              scope: GLOBAL
+              id: aws-cli-secret-key
+              token: "${AWS_SECRET_ACCESS_KEY}"
 jobs:
   - script: >
       folder('number-guesser')
   - file: '/var/jenkins_home/jobdsl/number-guesser.groovy'
 unclassified:
   location:
+    # TODO - pass in a variable for the ip address
     url: "http://127.0.0.1:8080/"

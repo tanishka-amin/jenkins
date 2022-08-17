@@ -24,6 +24,9 @@ COPY casc.yaml /var/jenkins_home/casc.yaml
 
 COPY --chown=jenkins:jenkins jobs/number-guesser.groovy /var/jenkins_home/jobdsl/number-guesser.groovy
 
-
-# Add groovy script to Jenkins hook
-#COPY --chown=jenkins:jenkins init.groovy.d/ /var/jenkins_home/init.groovy.d/
+# Installing aws-cli in the container so that jenkins can run aws-cli commands
+USER root
+RUN apt-get update
+RUN apt install python3-pip -y
+RUN pip3 install awscli --upgrade
+USER jenkins

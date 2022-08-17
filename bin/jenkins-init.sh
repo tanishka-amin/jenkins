@@ -77,6 +77,8 @@ runJenkins() {
     
     ## Get additional credentials
     GIT_TOKEN="$(docker run --rm -it -v ~/.aws:/root/.aws amazon/aws-cli ssm get-parameters --name 'GIT_ACCESS_TOKEN' --with-decryption --query Parameters[*].Value --output text --no-cli-pager)"
+    AWS_CLI_ACCESS_KEY_ID="$(docker run --rm -it -v ~/.aws:/root/.aws amazon/aws-cli ssm get-parameters --name 'JENKINS-AWS-CLI-ACCESS-KEY-ID' --with-decryption --query Parameters[*].Value --output text --no-cli-pager)"
+    AWS_CLI_SECRET_ACCESS_KEY="$(docker run --rm -it -v ~/.aws:/root/.aws amazon/aws-cli ssm get-parameters --name 'JENKINS-AWS-CLI-SECRET-ACCESS-KEY' --with-decryption --query Parameters[*].Value --output text --no-cli-pager)"
 
     # Janky Workaround
     # Put secret(s) in temp text file and then pass the file in to docker run
