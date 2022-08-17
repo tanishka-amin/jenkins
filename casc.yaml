@@ -36,8 +36,6 @@ credentials:
               id: aws-cli-secret-key
               secret: "${AWS_SECRET_ACCESS_KEY}"
 jobs:
-  - script: >
-      folder('number-guesser')
   - file: '/var/jenkins_home/jobdsl/number-guesser.groovy'
 unclassified:
   location:
