@@ -84,6 +84,9 @@ runJenkins() {
     # Put secret(s) in temp text file and then pass the file in to docker run
     echo -e "JENKINS_ADMIN_PASSWORD=${CREDENTIAL}" > ./env.txt
     echo -e "GIT_ACCESS_TOKEN=${GIT_TOKEN}" >> ./env.txt
+    echo -e "AWS_ACCESS_KEY_ID=${AWS_CLI_ACCESS_KEY_ID}" >> ./env.txt
+    echo -e "AWS_SECRET_ACCESS_KEY=${AWS_CLI_SECRET_ACCESS_KEY}" >> ./env.txt
+
 
     # Run container 
     # docker run --name "${CONTAINER_NAME}" --detach -p 8080:8080 --env JENKINS_ADMIN_PASSWORD="${CREDENTIAL}" "${IMAGE_NAME}"

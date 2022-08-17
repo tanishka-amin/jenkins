@@ -17,7 +17,7 @@ tool:
   git:
     installations:
       - name: git
-        home: /usr/bin/git
+        home: '/usr/bin/git'
 credentials:
   system:
     domainCredentials:
@@ -30,11 +30,11 @@ credentials:
           - string:
               scope: GLOBAL
               id: aws-cli-access-token
-              token: "${AWS_ACCESS_KEY_ID}"
+              secret: "${AWS_ACCESS_KEY_ID}"
           - string:
               scope: GLOBAL
               id: aws-cli-secret-key
-              token: "${AWS_SECRET_ACCESS_KEY}"
+              secret: "${AWS_SECRET_ACCESS_KEY}"
 jobs:
   - script: >
       folder('number-guesser')
