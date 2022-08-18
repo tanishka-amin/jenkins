@@ -79,13 +79,15 @@ runJenkins() {
     GIT_TOKEN="$(docker run --rm -it -v ~/.aws:/root/.aws amazon/aws-cli ssm get-parameters --name 'GIT_ACCESS_TOKEN' --with-decryption --query Parameters[*].Value --output text --no-cli-pager)"
     AWS_CLI_ACCESS_KEY_ID="$(docker run --rm -it -v ~/.aws:/root/.aws amazon/aws-cli ssm get-parameters --name 'JENKINS-AWS-CLI-ACCESS-KEY-ID' --with-decryption --query Parameters[*].Value --output text --no-cli-pager)"
     AWS_CLI_SECRET_ACCESS_KEY="$(docker run --rm -it -v ~/.aws:/root/.aws amazon/aws-cli ssm get-parameters --name 'JENKINS-AWS-CLI-SECRET-ACCESS-KEY' --with-decryption --query Parameters[*].Value --output text --no-cli-pager)"
-
+    JENKINS_URL="$(docker run --rm -it -v ~/.aws:/root/.aws amazon/aws-cli ec2 describe-instances --filters 'Name=key-name,Values=jenkins-controller' --query 'Reservations[].Instances[0].PublicDnsName' --output text --no-cli-pager)"
+    
     # Janky Workaround
     # Put secret(s) in temp text file and then pass the file in to docker run
     echo -e "JENKINS_ADMIN_PASSWORD=${CREDENTIAL}" > ./env.txt
     echo -e "GIT_ACCESS_TOKEN=${GIT_TOKEN}" >> ./env.txt
     echo -e "AWS_ACCESS_KEY_ID=${AWS_CLI_ACCESS_KEY_ID}" >> ./env.txt
     echo -e "AWS_SECRET_ACCESS_KEY=${AWS_CLI_SECRET_ACCESS_KEY}" >> ./env.txt
+    echo -e "JENKINS_URL=${JENKINS_URL}" >> ./env.txt
 
 
     # Run container 

@@ -40,4 +40,4 @@ jobs:
 unclassified:
   location:
     # TODO - pass in a variable for the ip address
-    url: "http://127.0.0.1:8080/"
+    url: "http://${JENKINS_URL}:8080/"
